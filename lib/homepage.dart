@@ -36,7 +36,15 @@ class _HomepageState extends State<Homepage> {
 
           ),),
           ElevatedButton(onPressed: incrementCounter,
-           child:Icon(Icons.add,size: 20,))
+           child:Icon(Icons.add,size: 20,)),
+
+           const SizedBox(height: 20,),
+           Text("This example is about using stateful widget for state management and its consiquence😊😍",
+           style: TextStyle(
+            color: Colors.pinkAccent,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic 
+           ),)
         ],
       ),
     );
