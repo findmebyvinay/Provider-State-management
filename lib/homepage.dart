@@ -1,4 +1,8 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
+
+import 'cartpage.dart';
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
@@ -7,46 +11,44 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  int _counter=0;
-  void incrementCounter(){
-    setState(() {
-      _counter++;
-    });
-  }
+ List <int> SelectedItem=[];
   @override
   Widget build(BuildContext context) {
+    print('reapeated');
     return Scaffold(
       appBar: AppBar(
         title: Text("Provider statemanageent"),
         backgroundColor: Colors.purpleAccent,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("You have pushed button this many time:",
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.black,
-            fontWeight: FontWeight.bold
-          ),),
-          const SizedBox(height: 20,),
-          Text("$_counter",style: TextStyle(
-            fontSize: 30,
-            color: Colors.blueGrey
-
-          ),),
-          ElevatedButton(onPressed: incrementCounter,
-           child:Icon(Icons.add,size: 20,)),
-
-           const SizedBox(height: 20,),
-           Text("This example is about using stateful widget for state management and its consiquence😊😍",
-           style: TextStyle(
-            color: Colors.pinkAccent,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic 
-           ),)
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>CartPage()));
+          },
+           icon:Icon(Icons.add_alert,size:30,color: Colors.amber[300],))
         ],
       ),
+      body:ListView.builder(
+        itemCount: 50,
+        itemBuilder: (context,index){
+        return ListTile(
+          onTap:(){
+          //SelectedItem.add(index);
+            setState(() {
+              if(SelectedItem.isEmpty){
+                SelectedItem.add(index);
+              }
+              else{
+                SelectedItem.remove(index);
+              }
+            });
+          }
+          ,
+          leading: Text('Item $index'),
+          trailing: Icon(
+            SelectedItem.contains(index)?Icons.favorite:
+            Icons.favorite_outline_rounded),
+
+        );
+      })
     );
   }
 }
